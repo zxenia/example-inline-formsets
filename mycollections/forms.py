@@ -6,7 +6,6 @@ from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder
 from .custom_layout_object import *
 
 
-
 class CollectionTitleForm(forms.ModelForm):
 
     class Meta:
