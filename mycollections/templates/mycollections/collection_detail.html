@@ -1,0 +1,42 @@
+{% extends "mycollections/base.html" %}
+{% block content %}
+<div class="card">
+        <div class="card-header">
+            <h1><b>Collection ID {{ object }}</b></h1>
+        </div>
+        <div class="card-body">
+        <table class="table">
+        <!--for inline added titles-->
+        {% if object.has_titles %}
+        {% for title in object.has_titles.all %}
+        <tr>
+            <th>Title @{{title.language}}</th>
+            <td>{{title.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+    	{% if object.subject %}
+    	<tr>
+            <th>Subject</th>
+            <td>{{ object.subject }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.owner %}
+    	<tr>
+            <th>Owner</th>
+            <td>{{ object.owner }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.note %}
+    	<tr>
+            <th>Note</th>
+            <td>{{ object.note }}</td>
+        </tr>
+    	{% endif %}
+        </table>
+        <a class="btn btn-outline-info" href="{% url 'mycollections:collection_update' pk=object.id %}">Update</a>
+        <a class="btn btn-outline-danger" href="{% url 'mycollections:collection_delete' pk=object.id %}">Delete</a>
+        </div>
+</div>
+{% endblock content %}
