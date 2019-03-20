@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(Collection)
 admin.site.register(CollectionTitle)
+admin.site.register(CollectionTitleChild)

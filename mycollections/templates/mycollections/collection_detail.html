@@ -13,6 +13,14 @@
             <th>Title @{{title.language}}</th>
             <td>{{title.name}}</td>
         </tr>
+        {% if title.has_children.all %}
+        {% for child in title.has_children.all %}
+        <tr>
+            <th>Child @{{child.language}}</th>
+            <td>{{child.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
         {% endfor %}
         {% endif %}
         <!--end-->

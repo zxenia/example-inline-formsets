@@ -17,7 +17,35 @@
                     {{ field|as_crispy_field }}
                 </td>
                 {% endfor %}
+
             </tr>
+    <!--nested form-->
+    {% if form.nested %}
+        {{ form.nested.management_form }}
+        {{ form.nested.non_form_errors }}
+
+        {% for nested_form in form.nested.forms %}
+        
+            <tr class="{% cycle 'row1' 'row2' %} formset_child-{{ formset.prefix }}"">
+                {% for field in nested_form.visible_fields %}
+                <td>
+                    {# Include the hidden fields in the nested_form #}
+                    {% if forloop.first %}
+                        {% for hidden in nested_form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                    {% endif %}
+                    {{ field.errors.as_ul }}
+                    {{ field|as_crispy_field }}
+                </td>
+                {% endfor %}
+            </tr>
+        
+        {% endfor %}
+
+    {% endif %}
+    <!-- end of nested form-->
+
     {% endfor %}
 
 </table>
@@ -27,6 +55,13 @@
 <script type="text/javascript">
     $('.formset_row-{{ formset.prefix }}').formset({
         addText: 'add another',
+        deleteText: 'remove',
+        prefix: '{{ formset.prefix }}',
+    });
+</script>
+<script type="text/javascript">
+    $('.formset_child-{{ formset.prefix }}').formset({
+        addText: 'add child',
         deleteText: 'remove',
         prefix: '{{ formset.prefix }}',
     });

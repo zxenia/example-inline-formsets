@@ -23,3 +23,15 @@ class CollectionTitle(models.Model):
         related_name="has_titles", on_delete=models.CASCADE)
     name = models.CharField(max_length=500, verbose_name="Title")
     language = models.CharField(max_length=3)
+
+
+class CollectionTitleChild(models.Model):
+    """
+    A Class for Collection title children.
+
+    """
+    collection_title = models.ForeignKey(CollectionTitle,
+        related_name="has_children", on_delete=models.CASCADE)
+    name = models.CharField(max_length=500, verbose_name="Child")
+    language = models.CharField(max_length=3)
+

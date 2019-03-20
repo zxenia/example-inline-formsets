@@ -56,6 +56,7 @@ class CollectionCreate(CreateView):
             if titles.is_valid():
                 titles.instance = self.object
                 titles.save()
+
         return super(CollectionCreate, self).form_valid(form)
 
     def get_success_url(self):
