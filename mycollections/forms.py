@@ -1,9 +1,11 @@
 from django import forms
-from .models import *
+from .models import Collection, CollectionTitle
 from django.forms.models import inlineformset_factory
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit
-from .custom_layout_object import *
+from crispy_forms.layout import Layout, Field, Fieldset, Div, Row, HTML, ButtonHolder, Submit
+from .custom_layout_object import Formset
+
+import re
 
 
 class CollectionTitleForm(forms.ModelForm):
@@ -12,10 +14,27 @@ class CollectionTitleForm(forms.ModelForm):
         model = CollectionTitle
         exclude = ()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        formtag_prefix = re.sub('-[0-9]+$', '', kwargs.get('prefix', ''))
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Field('name'),
+                Field('language'),
+                Field('DELETE'),
+                css_class='formset_row-{}'.format(formtag_prefix)
+            )
+        )
+
+
 CollectionTitleFormSet = inlineformset_factory(
     Collection, CollectionTitle, form=CollectionTitleForm,
     fields=['name', 'language'], extra=1, can_delete=True
-    )
+)
 
 
 class CollectionForm(forms.ModelForm):
@@ -36,9 +55,9 @@ class CollectionForm(forms.ModelForm):
                 Field('subject'),
                 Field('owner'),
                 Fieldset('Add titles',
-                    Formset('titles')),
+                         Formset('titles')),
                 Field('note'),
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'Save')),
-                )
             )
+        )
