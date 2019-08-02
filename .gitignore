@@ -1,5 +1,5 @@
 # Byte-compiled
 __pycache__/
 *.pyc
-
+*.sqlite3
 
