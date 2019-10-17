@@ -3,3 +3,4 @@ Django==2.1.7
 django-crispy-forms==1.7.2
 pytz==2018.9
 wincertstore==0.2
+django-dynamic-formsets==0.0.8
