@@ -23,7 +23,7 @@
 </table>
 <br>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="{% static 'mycollections/libraries/django-dynamic-formset/jquery.formset.js' %}"></script>
+<script src='{% static "dynamic_formsets/jquery.formset.js" %}'></script>
 <script type="text/javascript">
     $('.formset_row-{{ formset.prefix }}').formset({
         addText: 'add another',
