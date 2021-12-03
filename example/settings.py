@@ -1,4 +1,3 @@
-example/settings.py
 """
 Django settings for example project.
 
